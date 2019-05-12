@@ -1,0 +1,67 @@
+mixin vanForm(van = {})
+   p (*) Denotes A Required Field    
+   form(action=`/add-grooming-van-listing/${van._id || ''}` method="POST"  class="card" enctype="multipart/form-data")
+    label(for="name") Ad Title *
+    input(type="text" name="name" value=van.name)
+    label(for="description") Description *
+    textarea(name='description')= van.description
+
+    label(for="year") Year *
+    textarea(name='year')= van.year
+
+    label(for="make") Make *
+    textarea(name='make')= van.make
+
+    label(for="model") Model *
+    textarea(name='model')= van.model
+
+    label(for="mileage") Mileage *
+    textarea(name='mileage')= van.mileage
+
+    label(for="revenues") Revenues 
+    textarea(name='revenues')= van.revenues    
+
+    label(for="yearsInBusiness") Year Founded 
+    textarea(name='yearsInBusiness')= van.yearsInBusiness
+
+    label(for="photo") Photo *
+        input(type="file" name="photo" id="photo" accept="image/gif, image/png, image/jpeg")
+        if van.photo  
+            img(src=`/uploads/${van.photo}`, alt=van.name width=200)
+
+    //- Address LONG & LAT
+    label(for="address") City *
+    input(type="text" id="address" name="location[address]" value=(van.location && van.location.address))
+
+    label(for="lng") Address Lng
+    input(type="text" id="lng" name="location[coordinates][0]" value=(van.location && van.location.coordinates[0]) required)
+
+
+    label(for="lat") Address Lat
+    input(type="text" id="lat" name="location[coordinates][1]" value=(van.location && van.location.coordinates[1]) required)
+    - const states = ['Choose..', 'Illinois', 'Florida', 'Colorado']
+    - const choices = ['Mobile Vans', 'Store Front', 'Priced to Sell', 'Mobile Businesses', 'Supplies']
+    - const vanChoices = ['Low Miles', 'Turnkey', 'New', 'Has Generator', 'Supplies Included','2 Grooming Stations', 'Navigation', 'Back Up Camera', 'Leather', 'Cat Station', 'TV', 'Premium Sterio', 'LED Lighting', 'WagNTails', 'Hanvey']
+    - const tags = van.tags || []
+    - const vanTags = van.vanChoices || []
+    h3 Grooming Van Tags
+    ul.vanTags
+     //-   each vanChoice in VanChoices
+            .tag.tag__vanChoice
+                input(type='checkbox' id=vanChoice value=vanChoice name="vanTags" checked=(vanTags.includes(vanChoice)))
+                label(for=vanChoice) #{vanChoice}    
+    
+    h3 General Listing Tags
+    ul.tags
+      //-  each choice in choices
+            .tag.tag__choice
+                input(type='checkbox' id=choice value=choice name="tags" checked=(tags.includes(choice)))
+                label(for=choice) #{choice}
+
+    div
+    form(action='/SkillOpted' method="post")
+        label(for='state') State 
+        select(name='dropDown', id='')
+            each state in states
+                option=state
+        input(type="submit" value="save -<" class='button')

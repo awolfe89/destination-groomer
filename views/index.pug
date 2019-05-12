@@ -1,0 +1,49 @@
+extends layout
+
+include mixins/_storeCard
+include mixins/_pagination
+
+block content
+  .inner
+    
+  .banner2
+  .homepage-text
+   p Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusantium, cumque. Impedit, eligendi. Excepturi neque molestias aspernatur sit sequi, dolores eveniet. Placeat, culpa itaque repudiandae corporis quisquam error aliquid sapiente laborum!
+    .text-div
+   h2 Recent Listings
+   hr
+  
+   h2 Storefront Businesses For Sale
+    br
+   .stores
+    each store in stores
+     +storeCard(store)
+    br
+   input.button__hpButton(type="submit" value="See All →")
+   hr
+
+   h2 Mobile Grooming Vans For Sale
+   .placeholderDiv
+   .placeholderDiv
+   .placeholderDiv
+   .placeholderDiv
+   input.button__hpButton(type="submit" value="See All →")
+   br
+   .hpCallToAction
+    h2 Sign Up Today and Place Your Ad for FREE
+    <form action="/register">
+    input.button__hpButton(type="submit" value="Sign Up")
+    </form>
+   br
+  
+   br
+ 
+   h2 Mobile Grooming Businesses For Sale
+   .placeholderDiv
+   .placeholderDiv
+   .placeholderDiv
+   .placeholderDiv
+   input.button__hpButton(type="submit" value="See All →")
+   hr
+
+block footer

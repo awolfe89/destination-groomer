@@ -1,0 +1,43 @@
+mixin storeForm(store = {})
+   
+   form(action=`/add/${store._id || ''}` method="POST"  class="card" enctype="multipart/form-data")
+
+    label(for="name") Ad Title 
+    input(type="text" name="name" value=store.name)
+
+    label(for="description") Description
+    textarea(name='description')= store.description
+    
+    //- IMAGE UPLOAD 
+    label(for="photo") Photo
+        input(type="file" name="photo" id="photo" accept="image/gif, image/png, image/jpeg")
+        if store.photo  
+            img(src=`/uploads/${store.photo}`, alt=store.name width=200)
+
+    //- Address LONG & LAT
+    label(for="address") City
+    input(type="text" id="address" name="location[address]" value=(store.location && store.location.address))
+
+    label(for="lng") Address Lng
+    input(type="text" id="lng" name="location[coordinates][0]" value=(store.location && store.location.coordinates[0]) required)
+
+
+    label(for="lat") Address Lat
+    input(type="text" id="lat" name="location[coordinates][1]" value=(store.location && store.location.coordinates[1]) required)
+    - const states = ['Choose..', 'Illinois', 'Florida', 'Colorado']
+    - const choices = ['Mobile Vans', 'Store Front', 'Priced to Sell', 'Mobile Businesses', 'Supplies']
+    - const tags = store.tags || []
+    h3 Category
+    ul.tags
+        each choice in choices
+            .tag.tag__choice
+                input(type='checkbox' id=choice value=choice name="tags" checked=(tags.includes(choice)))
+                label(for=choice) #{choice}
+
+    div
+    form(action='/SkillOpted' method="post")
+        label(for='state') State 
+        select(name='dropDown', id='')
+            each state in states
+                option=state
+    input(type="submit" value="save -<" class='button')
