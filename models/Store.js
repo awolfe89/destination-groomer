@@ -149,8 +149,8 @@ storeSchema.virtual('reviews', {
 });
 
 function autopopulate(next) {
-    this.populate('reviews');
-    next();
+  this.populate('reviews');
+  next();
 }
 
 storeSchema.pre('find', autopopulate);

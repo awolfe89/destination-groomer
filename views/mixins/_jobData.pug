@@ -8,16 +8,19 @@ mixin jobData(job)
        h6 Requirements :  #{job.requirements}
       if job.tags
        h6 Groomer Type : #{job.tags}
-    if user
-      p Contact info Below is Displayed Because You're a Member :) 
-      .contactInfo
-        if job.contact
-          h6 Contact Info : #{job.contact}
-        else
-          h6 No phone number provided  
-        if job.email
-          h6 #{job.email}  
-        if !job.email
-          h6 No email address provided
+    if job.closed
+      null
+    else
+      if user
+        p Contact info Below is Displayed Because You're a Member :) 
+        .contactInfo
+          if job.contact
+            h6 Contact Info : #{job.contact}
+          else
+            h6 No phone number provided  
+          if job.email
+            h6 #{job.email}  
+          else
+            h6 No email address provided
 
       

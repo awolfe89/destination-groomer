@@ -9,13 +9,19 @@ block content
   .single
     .single__hero
       img.single__image(src=`/uploads/${van.photo || 'push-button1200.jpg'}`)
-      h2.title.title--single
-        a(href=`/van/${van.slug}`) #{van.name}
-
+      if van.sold
+        h2.titleSold.title--single
+          a(href=`/van/${van.slug}`) #{van.name} : sold
+      else    
+        h2.title.title--single
+          a(href=`/van/${van.slug}`) #{van.name}
   .single__details.inner
     img.single__map(src=h.staticMap2(van.location.coordinates))
     p.single__location= van.location.address
-    h2 #{van.name}
+    if van.sold
+      h2 #{van.name} : has been sold
+    else  
+      h2 #{van.name}
     .editDiv
       if user && van.author.equals(user._id)
         a(href=`/vans/${van._id}/edit`)
@@ -24,18 +30,23 @@ block content
     p= van.description
     h2 Van Specifications  
     +vanData(van)
-    if !user 
-      h6 #[a(href="/login") Sign In #[span ]] or #[a(href="/register") Register #[span ]] to see seller's contact info
+    if van.sold
+      null
+    else
+      if !user 
+        h6 #[a(href="/login") Sign In #[span ]] or #[a(href="/register") Register #[span ]] to see seller's contact info
     if van.tags
       ul.tags
         each tag in van.tags
           li.tag
             a.tag__link(href=`/tags/${tag}`)
               span.tag__text  ##{tag}
-
-    if user
-      h2 Q&A  
-      +reviewForm(van)
+    if van.sold
+      h6 Questions Have Been Disabled for this Sold Groomer Ad
+    else  
+      if user
+        h2 Q&A  
+        +reviewForm(van)
     br          
     p.single__location
       | Listing Created On

@@ -16,8 +16,13 @@ mixin jobCard(job = {})
    
 
       img(src=`/uploads/${job.photo || 'bubbles500.jpg'}`)
-      h2.title
-        a(href=`/grooming-jobs/${job.slug}`) #{job.name}
+      if job.closed
+        h2.titleSold
+          a(href=`/grooming-jobs/${job.slug}`) #{job.name} : Closed
+      else  
+        h2.title
+          a(href=`/grooming-jobs/${job.slug}`) #{job.name}
     .store__details
       p= job.description.split(' ').slice(0, 25).join(' ')
+      hr
       h6 #{job.location.address}

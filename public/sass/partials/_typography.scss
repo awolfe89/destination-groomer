@@ -65,8 +65,9 @@ p {
   // inline link inside
   a {
     border-bottom: 0;
-    $yellowa: rgba($yellow,0.8);
-    background-image: linear-gradient(to right, $yellowa 100%, $yellowa 50%);
+    color: white;
+    $titlea: rgba($title,0.8);
+    background-image: linear-gradient(to right, $titlea 100%, $titlea 50%);
   }
 }
 
@@ -78,5 +79,6 @@ p {
 }
 
 .title a:hover{
-  color: blue;
+  color: white;
+  text-shadow: -5px -5px 0 $soldR, 1px -5px 0 $soldR, -5px 1px 0 $soldR, 1px 1px 0 $soldR;
 }

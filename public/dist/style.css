@@ -489,7 +489,8 @@ p {
         transform: skew(-5deg); }
   .title a {
     border-bottom: 0;
-    background-image: linear-gradient(to right, rgba(255, 196, 14, 0.8) 100%, rgba(255, 196, 14, 0.8) 50%); }
+    color: white;
+    background-image: linear-gradient(to right, rgba(2, 73, 175, 0.8) 100%, rgba(2, 73, 175, 0.8) 50%); }
 
 .title--single {
   max-width: 600px;
@@ -498,7 +499,8 @@ p {
   text-align: center; }
 
 .title a:hover {
-  color: blue; }
+  color: white;
+  text-shadow: -5px -5px 0 #c31432, 1px -5px 0 #c31432, -5px 1px 0 #c31432, 1px 1px 0 #c31432; }
 
 input, textarea {
   width: 100%;
@@ -1275,6 +1277,15 @@ h6 {
   background: linear-gradient(to right, #021B79, #0575E6);
   /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */ }
 
+.button__askingSold {
+  font-size: 25px;
+  color: black;
+  background: #757F9A;
+  /* fallback for old browsers */
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #D7DDE8, #757F9A);
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */ }
+
 .dataDiv {
   padding-top: 10px;
   padding-bottom: 10px; }
@@ -1308,11 +1319,7 @@ h6 a:hover {
 .editDiv {
   padding-bottom: 2px;
   vertical-align: middle;
-  background: #C6FFDD;
-  /* fallback for old browsers */
-  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #f7797d, #FBD786, #C6FFDD);
-  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: #EFEFEF;
   color: white; }
 
 .editDiv a {
@@ -1321,6 +1328,9 @@ h6 a:hover {
 
 .editDiv h6 {
   font-weight: bold;
+  color: white; }
+
+.editDiv p {
   color: white; }
 
 .contactInfo {
@@ -1333,12 +1343,8 @@ h6 a:hover {
   height: 15rem; }
 
 .contactInfoSelling {
-  color: white;
-  background: #C6FFDD;
-  /* fallback for old browsers */
-  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #f7797d, #FBD786, #C6FFDD);
-  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  color: black;
+  background: #EFEFEF;
   text-align: center;
   height: 15rem;
   padding-top: 1rem; }
@@ -1361,8 +1367,9 @@ h6 a:hover {
   background: linear-gradient(to right, #021B79, #0575E6);
   /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   color: white;
-  height: 15rem;
+  height: 10rem;
   text-align: center;
+  float: inherit;
   vertical-align: middle;
   padding-top: 7px; }
 
@@ -1400,6 +1407,10 @@ h7 {
     border-bottom: 0;
     background-image: linear-gradient(to right, rgba(195, 20, 50, 0.8) 100%, rgba(195, 20, 50, 0.8) 50%);
     color: white; }
+
+.created__time {
+  color: white;
+  font-size: 17px; }
 
 .createListings {
   display: -ms-flexbox;

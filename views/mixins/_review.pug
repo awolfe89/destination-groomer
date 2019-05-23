@@ -9,3 +9,8 @@ mixin review(review)
     time.review__time(datetime=review.created)= h.moment(review.created).fromNow()
   .review__body
     p= review.text
+    p= review.answer
+      hr
+      form.reviewer(action=`/reviews/${store._id}` method="POST")
+          textarea(name="answer" placeholder="Reply to" )
+          input.button(type="submit" value="Reply →")

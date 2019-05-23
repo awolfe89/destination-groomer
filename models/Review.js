@@ -19,7 +19,11 @@ const reviewSchema = new mongoose.Schema({
   },
   text: {
     type: String,
-    required: 'Your review must have text!'
+   // required: 'Your review must have text!'
+  },
+  answer: {
+      type: String,
+
   },
   rating: {
     type: Number,

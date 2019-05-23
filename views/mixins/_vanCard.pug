@@ -28,6 +28,5 @@ mixin vanCard(van = {})
     .store__details
       p= van.description.split(' ').slice(0, 25).join(' ')
       h6 #{van.location.address} 
-      if van.sold
-        h2.title
-          h6 SOLD     
+      hr
+      h6 $#{van.askingPrice}    

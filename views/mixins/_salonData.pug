@@ -13,10 +13,16 @@ mixin salonData()
        h6 Supplies with the Sale? : #{store.supplies}
       if store.dogs
        h6 Avg. Dogs Groomed Per Day : #{store.dogs}
-    if user
-      p Contact info Below is Displayed Because You're a Member :) 
-      .contactInfoSelling
-          h6 Contact Info : #{store.contact}
+    if store.sold 
+      null
+    else     
+      if user
+        p Contact info Below is Displayed Because You're a Member :) 
+        .contactInfoSelling
+            h6 Contact Info : #{store.contact}
 
     .reviewer__meta
+    if store.sold
+      input.button__askingSold(type="submit" value=`ASKING $${store.price}`)
+    else  
       input.button__asking(type="submit" value=`ASKING $${store.price}`)

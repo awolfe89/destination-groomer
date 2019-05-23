@@ -9,21 +9,33 @@ block content
   .single
     .single__hero
       img.single__image(src=`/uploads/${store.photo || 'store.png'}`)
-      h2.title.title--single
-        a(href=`/store/${store.slug}`) #{store.name}
+      if store.sold
+        h2.titleSold.title--single
+          a(href=`/store/${store.slug}`) #{store.name} : sold
+      else    
+        h2.title.title--single
+          a(href=`/store/${store.slug}`) #{store.name}
 
   .single__details.inner
     img.single__map(src=h.staticMap2(store.location.coordinates))
     p.single__location= store.location.address
-      h2 Seller's Description
-      .editDiv
-        if user && store.author.equals(user._id)
-          a(href=`/stores/${store._id}/edit`)
-            != h.icon('pencil') 
-            span You Are the Owner of this Listing, Click Here to Edit.  
-      p= store.description
-    h2 Salon Specifications  
-    +salonData(store)
+    if store.sold
+      h2 #{store.name} : Has been marked as sold
+    else
+      h2 #{store.name}  
+    h6 Seller's Description
+    .editDiv
+      if user && store.author.equals(user._id)
+        a(href=`/stores/${store._id}/edit`)
+          != h.icon('pencil') 
+          span You Are the Owner of this Listing, Click Here to Edit.  
+    h6 Description
+    p= store.description
+    h6 Salon Specifications  
+      +salonData(store)
+    if store.sold
+      null
+    else
     if !user
      h6 Sign in to Ask the Seller a Question and See Questions from Other Users!
     if store.tags
@@ -32,17 +44,26 @@ block content
           li.tag
             a.tag__link(href=`/tags/${tag}`)
               span.tag__text  ##{tag}
-
-    if user
-      h2 Q&A
-      +reviewForm(store)
+    if store.sold
+      h6 Questions have been closed for this sold Listing
+    else  
+      if user
+        h2 Q&A
+    +reviewForm(store)
     br          
     p.single__location
-      | Listing Created On
+      | Listing Created : 
+
+      time.created__time(datetime=store.created)= h.moment(store.created).fromNow()
+
+
+
+  
       br
-      | #{store.created}
-    if store.reviews
-      .reviews
-        each review in store.reviews
-          .review
+      br
+      if store.reviews
+        h6 Buyer Questions
+        .reviews
+          each review in store.reviews
+            .review
             +review(review)

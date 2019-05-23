@@ -153,6 +153,16 @@
 
   }
 
+  .button__askingSold {
+    font-size: 25px;
+    color: black;
+    background: #757F9A;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #D7DDE8, #757F9A);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #D7DDE8, #757F9A); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    
+
+  }
+
 .dataDiv{
   padding-top: 10px;
   padding-bottom: 10px;
@@ -190,9 +200,8 @@ h6 a:hover {
  
   padding-bottom: 2px;
   vertical-align: middle;
-  background: #C6FFDD;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #f7797d, #FBD786, #C6FFDD);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #f7797d, #FBD786, #C6FFDD); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: #EFEFEF;
+
   
   color: white
 }
@@ -205,6 +214,10 @@ h6 a:hover {
   font-weight: bold;
   color: white;
 }
+
+.editDiv p {
+  color: white;
+}
 .contactInfo {
   color: white;
   background: #0575E6;  /* fallback for old browsers */
@@ -214,10 +227,8 @@ h6 a:hover {
 
 }
 .contactInfoSelling {
-  color: white;
-  background: #C6FFDD;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #f7797d, #FBD786, #C6FFDD);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #f7797d, #FBD786, #C6FFDD); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  color: black;
+  background: #EFEFEF;
   
   text-align: center;
   height: 15rem;
@@ -242,8 +253,9 @@ h6 a:hover {
   background: -webkit-linear-gradient(to right, #021B79, #0575E6);  /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to right, #021B79, #0575E6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   color: white;
-  height: 15rem;
+  height: 10rem;
   text-align: center;
+  float: inherit;
   vertical-align: middle;
   padding-top: 7px;
 }
@@ -287,4 +299,9 @@ h7{
     background-image: linear-gradient(to right, $sold 100%, $sold 50%);
     color: white;
   }
+}
+
+.created__time {
+  color: white;
+  font-size: 17px;
 }

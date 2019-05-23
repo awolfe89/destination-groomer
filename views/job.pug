@@ -8,24 +8,33 @@ block content
   .single
     .single__hero
       img.single__image(src=`/uploads/${job.photo || 'soapy-1200.jpg'}`)
-      h2.title.title--single
-        a(href=`/grooming-job/${job.slug}`) #{job.name}
+      if job.closed
+        h2.titleSold.title--single
+          a(href=`/grooming-job/${job.slug}`) #{job.name} : sold
+      else
+        h2.title.title--single
+          a(href=`/grooming-job/${job.slug}`) #{job.name}
 
   .single__details.inner
     img.single__map(src=h.staticMap2(job.location.coordinates))
     p.single__location= job.location.address
-    h2 Job Description 
-    h6 #[a(href="/login") Mark Listing As SOLD #[span ]]
+    if job.closed
+      h2 #{job.name} : has been closed
+    else  
+      h2 #{job.name}
+ 
     .editDiv
       if user && job.author.equals(user._id)
         a(href=`/grooming-jobs/${job._id}/edit`)
           != h.icon('pencil') 
-          span You Are the Owner of this Listing, Click Here to Edit.     
+          span You Are the Owner of this Listing, Click Here to Edit. 
+    h6 Job Description           
     p= job.description
-    h2 Job Details  
-    +jobData(job)
+    h6 Job Details  
+      +jobData(job)
     if !user 
       h6 #[a(href="/login") Sign In #[span ]] or #[a(href="/register") Register #[span ]] to see this job's contact info
+
     br          
     p.single__location
       | Listing Created On

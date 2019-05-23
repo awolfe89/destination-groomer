@@ -6,6 +6,7 @@ mixin vanForm(van = {})
     if van.sold
         .soldDiv
             h6 **The #{van.year} #{van.make} #{van.model} Grooming Van Has Been Marked as Sold**
+                p editing is no longer allowed
         br
         br
         .single__hero
@@ -33,8 +34,8 @@ mixin vanForm(van = {})
                   
     else
         .soldDiv   
-            h6 Sold? 
-                input(type="checkbox", name="sold" value="true")
+            label(for="sold") Sold?
+            input(type="checkbox", name="sold" value="true")
 
         label(for="name") Ad Title *
         input(type="text" name="name" value=(van.name))                
