@@ -24,6 +24,8 @@ require('./models/Store');
 require('./models/User');
 require('./models/Review');
 require('./models/Van');
+require('./models/Job');
+require('./models/Directory');
 
 // Start our app!
 const app = require('./app');

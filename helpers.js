@@ -22,11 +22,18 @@ exports.icon = (name) => fs.readFileSync(`./public/images/icons/${name}.svg`);
 exports.siteName = `Groomer Classifieds`;
 
 exports.menu = [
-  { slug: '/stores', title: 'Stores', icon: 'store', },
+  { slug: '/stores', title: 'Businesses', icon: 'contract', },
+  { slug: '/vans', title: 'Grooming Vans', icon: 'van', },
+  { slug: '/create-listing', title: 'Create Listing', icon: 'shopping-bag', },
+  { slug: '/groomer-directory', title: 'Groomer Directory', icon: 'dog', },
+  { slug: '/jobs-for-groomers', title: 'Help Wanted', icon: 'worker', },
   { slug: '/tags', title: 'Tags', icon: 'tag', },
-  { slug: '/top', title: 'Top', icon: 'top', },
-  { slug: '/add', title: 'Add', icon: 'add', },
+  { slug: '/top', title: 'Hot', icon: 'fire', },
   { slug: '/map', title: 'Map', icon: 'map', },
+
+ 
+
+
 ];
 
 //`https://maps.googleapis.com/maps/api/staticmap?center=${lat},${lng}&zoom=14$size=800x150&key=${process.env.MAP_KEY}&markers=${lat},${lng}&scale=2`;

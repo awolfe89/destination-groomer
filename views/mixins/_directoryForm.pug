@@ -1,0 +1,83 @@
+mixin directoryForm(directory = {})
+   p (*) Denotes A Required Field  
+   form(action=`/add-groomer-directory/${directory._id || ''}` method="POST"  class="card" enctype="multipart/form-data")
+    h6 Basic Company Info 
+    label(for="name") Business Name *
+    input(type="text" name="name" value=(directory.name))
+
+    label(for="description") Business Description *
+    textarea(name='description')= directory.description
+    
+    - const choices = ['Mobile Grooming Business', 'Salon Grooming Business']
+    - const tags = directory.directoryTags || []
+
+    
+    label(for="animals") What Kind of Animals Do You Groom? (I.E. 'Dogs Only' or 'Dogs & Cats Welcome!')
+    input(type="text" name="animals" value=(directory.animals))
+
+    label(for="phone") Phone Number 
+    input(type="text" name="phone" value=(directory.phone))
+
+    label(for="email") Contact Email 
+    input(type="text" name="email" value=(directory.email))
+
+    label(for="website") Business Website 
+    input(type="text" name="website" value=(directory.website))
+
+    label(for="facebook") Company Facebook Page
+    input(type="text" name="facebook" value=(directory.facebook))
+
+
+    //- IMAGE UPLOAD 
+    label(for="photo") Photo
+        input(type="file" name="photo" id="photo" accept="image/gif, image/png, image/jpeg")
+        if directory.photo  
+            img(src=`/uploads/${directory.photo}`, alt=directory.name width=200)
+    h6 Location Information         
+    label(for="city") City
+    input(type="text" name="city" value=(directory.city))
+
+    label(for="state") State 
+    input(type="text" name="state" value=(directory.state))
+
+    //- Address LONG & LAT
+    label(for="address") Street Address *
+    input(type="text" id="address" name="location[address]" value=(directory.location && directory.location.address))
+    
+    p This Will Auto-Populate Once You Add Your Street Address
+    label(for="lng") Address Lng
+    input(type="text" id="lng" name="location[coordinates][0]" value=(directory.location && directory.location.coordinates[0]) required)
+
+    p This Will Auto-Populate Once You Add Your Street Address
+    label(for="lat") Address Lat
+    input(type="text" id="lat" name="location[coordinates][1]" value=(directory.location && directory.location.coordinates[1]) required)
+    h6 Hours of Operation
+    label(for="mondayHours") Monday
+    input(type="text" name="mondayHours" value=(directory.mondayHours))
+
+    label(for="tuesdayHours") Tuesday 
+    input(type="text" name="tuesdayHours" value=(directory.tuesdayHours))
+
+    label(for="wednesdayHours") Wednesday 
+    input(type="text" name="wednesdayHours" value=(directory.wednesdayHours))
+
+    label(for="thursdayHours") Thursday 
+    input(type="text" name="thursdayHours" value=(directory.thursdayHours))
+
+    label(for="fridayHours") Friday 
+    input(type="text" name="fridayHours" value=(directory.fridayHours))
+
+    label(for="saturdayHours") Saturday 
+    input(type="text" name="saturdayHours" value=(directory.saturdayHours))  
+
+    label(for="sundayHours") Sunday 
+    input(type="text" name="sundayHours" value=(directory.sundayHours))      
+
+    h6 Which Type of Grooming Business Do You Own?
+    ul.tags
+        each choice in choices
+            .tag.tag__choice
+                input(type='checkbox' id=choice value=choice name="tags" checked=(tags.includes(choice)))
+                label(for=choice) #{choice}
+
+    input(type="submit" value="save -<" class='button')

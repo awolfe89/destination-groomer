@@ -2,7 +2,8 @@ extends layout
 
 block content 
     .inner
-        h2 Edit Your Account
+        h2 Edit #{user.userName || 'your'} Account
+        h6 User Name : #{user.userName}
         form(action="/account" method="POST")
          label(for="name") Name
          input(type="text" name="name" value=user.name)

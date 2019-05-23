@@ -8,13 +8,18 @@ const vanSchema = new mongoose.Schema({
     trim: true,
     required: 'Please enter a listing name!'
   },
+  askingPrice: {
+    type: String,
+    trim: true,
+    required: 'Please Enter an Asking Price'
+  },
   yearsInBusiness: {
     type: String,
     trim: true,
-    required: 'Please enter a listing name!'
+    //required: 'Please Add Years in Business'
   },
   revenues: {
-    type: Number,
+    type: String,
   },
   year: {
       type: Number,
@@ -22,7 +27,11 @@ const vanSchema = new mongoose.Schema({
   make: {
       type: String,
   },
-
+  contact: {
+    type: String,
+    trim: true,
+    required: 'Please Add at Least One Contact Method'
+  },
   model: {
       type: String,
   },
@@ -42,7 +51,16 @@ const vanSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   },
-  stateTags: [String],
+  city: {
+    type: String,
+    trim: true,
+    required: 'Please Enter a City'
+  },
+  state: {
+    type: String,
+    trim: true,
+    required: 'Please Enter a State'
+  },
   created: {
     type: Date,
     default: Date.now
@@ -56,7 +74,7 @@ const vanSchema = new mongoose.Schema({
       type: Number,
       required: 'You must supply coordinates!'
     }],
-    city: {
+    address: {
       type: String,
       required: 'You must supply a city!'
     }
@@ -65,7 +83,7 @@ const vanSchema = new mongoose.Schema({
   author: {
     type: mongoose.Schema.ObjectId,
     ref: 'User',
-    required: 'You must supply an author'
+    //required: 'You must supply an author'
   }
 }, {
   toJSON: { virtuals: true },
@@ -86,7 +104,7 @@ vanSchema.pre('save', async function(next) {
     return; // stop this function from running
   }
   this.slug = slug(this.name);
-  // find other stores that have a slug of wes, wes-1, wes-2
+  // find other vans  that have a slug of van, van-1, van-2
   const slugRegEx = new RegExp(`^(${this.slug})((-[0-9]*$)?)$`, 'i');
   const vansWithSlug = await this.constructor.find({ slug: slugRegEx });
   if (vansWithSlug.length) {
@@ -106,9 +124,9 @@ vanSchema.statics.getTagsList = function() {
 
 vanSchema.statics.getTopVans = function() {
     return this.aggregate([
-        //lookup stores & populate reviews
-        { $lookup: { from: 'reviews', localField: '_id', foreignField: 'store', as: 'reviews' } },
-        // filter for stores that have more than 2 reviews only
+        //lookup vans & populate reviews
+        { $lookup: { from: 'reviews', localField: '_id', foreignField: 'van', as: 'reviews' } },
+        // filter for vans that have more than 2 reviews only
         { $match: { 'reviews.1': { $exists: true } } },
         // add the average reviews field
         { $project: { 
@@ -124,11 +142,11 @@ vanSchema.statics.getTopVans = function() {
         { $limit: 10 }
     ]);
 }
-// find reviews where the stores _id property === reviews store property
+// find reviews where the vans _id property === reviews van property
 vanSchema.virtual('reviews', {
   ref: 'Review', // what model to link?
-  localField: '_id', // which field on the store?
-  foreignField: 'store' // which field on the review?
+  localField: '_id', // which field on the van?
+  foreignField: 'van' // which field on the review?
 });
 
 function autopopulate(next) {

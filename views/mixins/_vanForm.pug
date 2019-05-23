@@ -1,67 +1,102 @@
 mixin vanForm(van = {})
    p (*) Denotes A Required Field    
-   form(action=`/add-grooming-van-listing/${van._id || ''}` method="POST"  class="card" enctype="multipart/form-data")
-    label(for="name") Ad Title *
-    input(type="text" name="name" value=van.name)
-    label(for="description") Description *
-    textarea(name='description')= van.description
+   form(action=`/add-grooming-van/${van._id || ''}` method="POST"  class="card" enctype="multipart/form-data")
+    h6 General Information
 
-    label(for="year") Year *
-    textarea(name='year')= van.year
+    if van.sold
+        .soldDiv
+            h6 **The #{van.year} #{van.make} #{van.model} Grooming Van Has Been Marked as Sold**
+        br
+        br
+        .single__hero
+            img.single__image(src=`/uploads/${van.photo || 'push-button1200.jpg'}`)
+        br
+        br            
+        h7 title: 
+        h6 #{van.name}
+        h7 Description: 
+        h6 #{van.description}  
+        h7 Asking Price: 
+        h6 $#{van.askingPrice}
+        h7 Year of Grooming Van: 
+        h6 #{van.year}
+        h7 Make of Grooming Van: 
+        h6 #{van.make}
+        h7 Model of Grooming Van: 
+        h6 #{van.model}
+        h7 Mileage: 
+        h6 #{van.mileage}
+        h7 City: 
+        h6 #{van.city}
+        h7 State: 
+        h6 #{van.state}
+                  
+    else
+        .soldDiv   
+            h6 Sold? 
+                input(type="checkbox", name="sold" value="true")
 
-    label(for="make") Make *
-    textarea(name='make')= van.make
+        label(for="name") Ad Title *
+        input(type="text" name="name" value=(van.name))                
+        label(for="description") Description *
+        textarea(name='description')= van.description
 
-    label(for="model") Model *
-    textarea(name='model')= van.model
+        label(for="askingPrice") Asking Price *
+        input(type="text" name="askingPrice" value=(van.askingPrice))
 
-    label(for="mileage") Mileage *
-    textarea(name='mileage')= van.mileage
+        label(for="contact") Preferred Contact Information *
+        input(type="text" name="contact" value=(van.contact))
+        h6 Grooming Van Specifics
+        label(for="year") Year of Vehicle *
+        input(type="text" name="year" value=(van.year))
 
-    label(for="revenues") Revenues 
-    textarea(name='revenues')= van.revenues    
+        label(for="make") Make of Grooming Van *
+        input(type="text" name="make" value=(van.make))
 
-    label(for="yearsInBusiness") Year Founded 
-    textarea(name='yearsInBusiness')= van.yearsInBusiness
+        label(for="model") Model of Grooming Van *
+        input(type="text" name="model" value=(van.model))
 
-    label(for="photo") Photo *
-        input(type="file" name="photo" id="photo" accept="image/gif, image/png, image/jpeg")
-        if van.photo  
-            img(src=`/uploads/${van.photo}`, alt=van.name width=200)
+        label(for="mileage") Mileage on Vehicle*
+        input(type="text" name="mileage" value=(van.mileage))
 
-    //- Address LONG & LAT
-    label(for="address") City *
-    input(type="text" id="address" name="location[address]" value=(van.location && van.location.address))
+        label(for="photo") Photo *
+            input(type="file" name="photo" id="photo" accept="image/gif, image/png, image/jpeg")
+            if van.photo  
+                img(src=`/uploads/${van.photo}`, alt=van.name width=200)
+        h6 Location Information
+        //- Address LONG & LAT
+        
+        label(for="city") City*
+        input(type="text" name="city" value=(van.city))
 
-    label(for="lng") Address Lng
-    input(type="text" id="lng" name="location[coordinates][0]" value=(van.location && van.location.coordinates[0]) required)
+        label(for="state") State*
+        input(type="text" name="state" value=(van.state))
+
+        label(for="address") Address *
+        input(type="text" id="address" name="location[address]" value=(van.location && van.location.address))
+
+        label(for="lng") Address Lng
+        input(type="text" id="lng" name="location[coordinates][0]" value=(van.location && van.location.coordinates[0]) required)
 
 
-    label(for="lat") Address Lat
-    input(type="text" id="lat" name="location[coordinates][1]" value=(van.location && van.location.coordinates[1]) required)
-    - const states = ['Choose..', 'Illinois', 'Florida', 'Colorado']
-    - const choices = ['Mobile Vans', 'Store Front', 'Priced to Sell', 'Mobile Businesses', 'Supplies']
-    - const vanChoices = ['Low Miles', 'Turnkey', 'New', 'Has Generator', 'Supplies Included','2 Grooming Stations', 'Navigation', 'Back Up Camera', 'Leather', 'Cat Station', 'TV', 'Premium Sterio', 'LED Lighting', 'WagNTails', 'Hanvey']
-    - const tags = van.tags || []
-    - const vanTags = van.vanChoices || []
-    h3 Grooming Van Tags
-    ul.vanTags
-     //-   each vanChoice in VanChoices
-            .tag.tag__vanChoice
-                input(type='checkbox' id=vanChoice value=vanChoice name="vanTags" checked=(vanTags.includes(vanChoice)))
-                label(for=vanChoice) #{vanChoice}    
-    
-    h3 General Listing Tags
-    ul.tags
-      //-  each choice in choices
-            .tag.tag__choice
-                input(type='checkbox' id=choice value=choice name="tags" checked=(tags.includes(choice)))
-                label(for=choice) #{choice}
-
-    div
-    form(action='/SkillOpted' method="post")
-        label(for='state') State 
-        select(name='dropDown', id='')
-            each state in states
-                option=state
-        input(type="submit" value="save -<" class='button')
+        label(for="lat") Address Lat
+        input(type="text" id="lat" name="location[coordinates][1]" value=(van.location && van.location.coordinates[1]) required)
+        - const states = ['Choose..', 'Illinois', 'Florida', 'Colorado']
+        - const choices = ['Mobile Vans', 'Store Front', 'Priced to Sell', 'Mobile Businesses', 'Supplies']
+        - const vanChoices = ['Low Miles', 'Turnkey', 'New', 'Has Generator', 'Supplies Included','2 Grooming Stations', 'Navigation', 'Back Up Camera', 'Leather', 'Cat Station', 'TV', 'Premium Sterio', 'LED Lighting', 'WagNTails', 'Hanvey']
+        - const tags = van.tags || []
+        - const vanTags = van.vanChoices || []
+        h6 Grooming Van Tags
+        ul.vanTags
+        //-   each vanChoice in VanChoices
+                .tag.tag__vanChoice
+                    input(type='checkbox' id=vanChoice value=vanChoice name="vanTags" checked=(vanTags.includes(vanChoice)))
+                    label(for=vanChoice) #{vanChoice}    
+        
+        h6 General Listing Tags
+        ul.tags
+            each choice in choices
+                .tag.tag__choice
+                    input(type='checkbox' id=choice value=choice name="tags" checked=(tags.includes(choice)))
+                    label(for=choice) #{choice}
+        input(type="submit" value="Save →" class="button")

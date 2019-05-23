@@ -1,0 +1,48 @@
+extends layout
+
+include mixins/_reviewForm
+include mixins/_review
+include mixins/_vanData
+
+block content
+
+  .single
+    .single__hero
+      img.single__image(src=`/uploads/${van.photo || 'push-button1200.jpg'}`)
+      h2.title.title--single
+        a(href=`/van/${van.slug}`) #{van.name}
+
+  .single__details.inner
+    img.single__map(src=h.staticMap2(van.location.coordinates))
+    p.single__location= van.location.address
+    h2 #{van.name}
+    .editDiv
+      if user && van.author.equals(user._id)
+        a(href=`/vans/${van._id}/edit`)
+          != h.icon('pencil') 
+          span You Are the Owner of this Listing, Click Here to Edit.  
+    p= van.description
+    h2 Van Specifications  
+    +vanData(van)
+    if !user 
+      h6 #[a(href="/login") Sign In #[span ]] or #[a(href="/register") Register #[span ]] to see seller's contact info
+    if van.tags
+      ul.tags
+        each tag in van.tags
+          li.tag
+            a.tag__link(href=`/tags/${tag}`)
+              span.tag__text  ##{tag}
+
+    if user
+      h2 Q&A  
+      +reviewForm(van)
+    br          
+    p.single__location
+      | Listing Created On
+      br
+      | #{van.created}
+    if van.reviews
+      .reviews
+        each review in van.reviews
+          .review
+            +review(review)

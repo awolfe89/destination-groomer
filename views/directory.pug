@@ -1,0 +1,53 @@
+extends layout
+
+include mixins/_reviewForm
+include mixins/_review
+include mixins/_directoryData
+include mixins/_hours
+
+block content
+
+  .single
+    .single__hero
+      img.single__image(src=`/uploads/${directory.photo || 'brushes-1000.jpg'}`)
+      h2.title.title--single
+        a(href=`/groomer-directory/${directory.slug}`) #{directory.name}
+
+  .single__details.inner
+    img.single__map(src=h.staticMap2(directory.location.coordinates))
+    p.single__location= directory.location.address
+      h2 #{directory.name} 
+        p #{directory.city}, #{directory.state}
+        p #{directory.phone}
+      .editDiv
+        if user && directory.author.equals(user._id)
+            a(href=`/groomer-directory/${directory._id}/edit`)
+              != h.icon('pencil') 
+              span You Are the Owner of this Listing, Click Here to Edit. 
+             
+      p= directory.description
+    h2 Business Details
+    +directoryData(directory)
+    if directory.tags
+      ul.tags
+        each tag in directory.tags
+          li.tag
+            a.tag__link(href=`/directory-tags/${tag}`)
+              span.tag__text  Type of Groomer : #{tag}
+      h2 Hours of Operation
+      +hours(directory)        
+    if user
+      h2 Q&A
+      +reviewForm(directory)
+    else 
+        h6 #[a(href="/login") Sign In #[span ]] or #[a(href="/register") Register #[span ]] to ask a Question & see other Q&A
+    br          
+    p.single__location
+      | Listing Created On
+      br
+      | #{directory.created}        
+    if directory.reviews
+      .reviews
+        each review in directory.reviews
+          .review
+            +review(review)

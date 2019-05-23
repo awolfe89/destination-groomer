@@ -1,0 +1,31 @@
+extends layout
+
+block content 
+    if !user
+        .innerCL
+            h2 You Must be logged in or registered to create listings 
+            <form action="/add">
+            input.button_a(type="submit" value="Log In")
+            </form> 
+        .innerCL
+            <form action="/add-grooming-van">
+            input.button_a(type="submit" value="Register")
+            </form> 
+    else        
+        .innerCL
+            h2 Which Listing Would You Like to Create?
+            <form action="/add">
+            input.button_a(type="submit" value="Create a Grooming Business for Sale Listing")
+            </form> 
+        .innerCL
+            <form action="/add-grooming-van">
+            input.button_a(type="submit" value="Sell a Mobile Dog Grooming Van")
+            </form>         
+        .innerCL
+            <form action="/add-grooming-job">
+            input.button_a(type="submit" value="Post a Help Wanted Ad Groomer Ad")
+            </form>         
+        .innerCL
+            <form action="/add-groomer-directory">
+            input.button_a(type="submit" value="Add Your Business to our Groomer Directory")
+            </form>   

@@ -1,0 +1,18 @@
+mixin vanData()
+  form.reviewer(action="#")
+    .dataDiv
+      if van.year
+       h6 Year of Grooming Van : #{van.year}
+      if van.make 
+       h6 Make of Grooming Van :  #{van.make}
+      if van.model
+       h6 Model : #{van.model}
+      if van.mileage 
+       h6 Mileage on Grooming Van : #{van.mileage}
+    if user
+      p Contact info Below is Displayed Because You're a Member :) 
+      .contactInfoSelling
+          h6 Contact Info : #{van.contact}
+
+    .reviewer__meta
+      input.button__asking(type="submit" value=`ASKING $${van.askingPrice}`)

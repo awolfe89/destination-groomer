@@ -1,0 +1,21 @@
+extends layout 
+
+
+include mixins/_jobCard
+
+block content 
+    .inner
+        h2 #{tag || 'Search Grooming Jobs'}
+        ul.tags
+            each t in tags
+                li.tag
+                    a.tag__link(href=`/jobs-for-groomers/${t._id}` class=(t._id === tag ? 'tag__link--active' : ''))
+                        span.tag__text= t._id
+                        span.tag__count= t.count
+        .stores
+            each job in jobs
+                +jobCard(job)
+            if user 
+                h6 Hey #{user.name}, Since You're a Registered User, you can #[a(href="/add-grooming-job") create your own Help Wanted Listing Here! #[span ]]
+            else
+                h6 #[a(href="/login") Log in #[span ]]  or #[a(href="/register") register #[span ]] to create your own help wanted listing!

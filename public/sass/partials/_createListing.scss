@@ -1,0 +1,120 @@
+.createListings {
+    display:flex;
+    flex-wrap:wrap;
+    margin: -1.25em 0 0 -1.25em;
+    text-align: center;
+  }
+  
+  .createListing {
+    background-color:#0575E6;
+    text-align: center;
+    height: 10em;
+    margin: 1.25em 0 0 1.25em;
+    width: calc(55 - 1.25em);
+    box-shadow: $shad;
+    &--wide {
+      width: 100%;
+    }
+    &__details {
+      padding: 2rem;
+      p {
+        line-height: 1.2;
+        margin-bottom: 0;
+      }
+    }
+    @media all and (max-width: 850px) {
+      width: calc(50% - 1.25em);
+    }
+    @media all and (max-width: 550px) {
+      width: 100%;
+    }
+  }
+
+  .createListing:hover{
+      color: blue;
+      box-shadow: orange;
+  }
+
+  .innerCL {
+    max-width:900px;
+    margin: 0 auto;
+    @media all and (max-width: 900px) {
+      padding: 2rem;
+    }
+  }
+
+  .button__createButton {
+    background-color:#0575E6;
+    color: white;
+    font-size: 2em;
+    border-radius: 5px;
+    font-weight: bold;
+    font-style: 'Panama';
+    text-align: center;
+    height: 10em;
+    margin: 1.25em 0 0 1.25em;
+    width: calc(55 - 1.25em);
+    box-shadow: $shad;
+    &--wide {
+      width: 100%;
+    }
+    &__details {
+      padding: 2rem;
+      p {
+        line-height: 1.2;
+        margin-bottom: 0;
+      }
+    }
+    @media all and (max-width: 850px) {
+      width: calc(50% - 1.25em);
+    }
+    @media all and (max-width: 550px) {
+      width: 100%;
+    }
+  }
+
+  .button_a {
+
+    background-color:#0575E6;
+    color: white;
+    font-size: 2em;
+    border-radius: 5px;
+    font-weight: bold;
+    font-style: 'Panama';
+    text-align: center;
+    height: 10em;
+    margin: 1.25em 0 0 1.25em;
+    width: calc(55 - 1.25em);
+    box-shadow: $shad;
+    &--wide {
+      width: 100%;
+    }
+    &__details {
+      padding: 2rem;
+      p {
+        line-height: 1.2;
+        margin-bottom: 0;
+      }
+    }
+    @media all and (max-width: 850px) {
+      width: calc(50% - 1.25em);
+    }
+    @media all and (max-width: 550px) {
+      width: 100%;
+    }
+  }
+
+
+
+.button_a:hover {
+        background: #070bd6;
+        letter-spacing: 1px;
+        -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
+        transition: all 0.4s ease 0s;
+}
+
+.innerCL h2 {
+    text-align: center;
+}

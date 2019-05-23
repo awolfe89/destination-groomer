@@ -2,6 +2,7 @@ extends layout
 
 include mixins/_reviewForm
 include mixins/_review
+include mixins/_salonData
 
 block content
 
@@ -14,8 +15,17 @@ block content
   .single__details.inner
     img.single__map(src=h.staticMap2(store.location.coordinates))
     p.single__location= store.location.address
-    p= store.description
-
+      h2 Seller's Description
+      .editDiv
+        if user && store.author.equals(user._id)
+          a(href=`/stores/${store._id}/edit`)
+            != h.icon('pencil') 
+            span You Are the Owner of this Listing, Click Here to Edit.  
+      p= store.description
+    h2 Salon Specifications  
+    +salonData(store)
+    if !user
+     h6 Sign in to Ask the Seller a Question and See Questions from Other Users!
     if store.tags
       ul.tags
         each tag in store.tags
@@ -24,8 +34,13 @@ block content
               span.tag__text  ##{tag}
 
     if user
+      h2 Q&A
       +reviewForm(store)
-
+    br          
+    p.single__location
+      | Listing Created On
+      br
+      | #{store.created}
     if store.reviews
       .reviews
         each review in store.reviews

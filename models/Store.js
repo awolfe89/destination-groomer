@@ -6,7 +6,53 @@ const storeSchema = new mongoose.Schema({
   name: {
     type: String,
     trim: true,
-    required: 'Please enter a store name!'
+    required: 'Please Enter a Salon Name'
+  },
+  yearsInBusiness: {
+    type: String,
+    trim: true,
+    required: 'Please Enter Years in Business'
+  },
+  leaseTerm: {
+    type: String,
+    trim: true,
+  },
+  rent: {
+    type: String,
+    trim: true,
+  },
+  revenue: {
+    type: String,
+    trim: true,
+  },
+  supplies: {
+    type: String,
+    trim: true,
+  },
+  sold: Boolean,
+  dogs: {
+    type: String,
+    trim: true,
+  },
+  price: {
+    type: String,
+    trim: true,
+    required: 'Please Enter a Sell Price'
+  },
+  contact: {
+    type: String,
+    trim: true,
+    required: 'Please Enter Some Contact Information'
+  },
+  city: {
+    type: String,
+    trim: true,
+    required: 'Please Enter a City'
+  },
+  state: {
+    type: String,
+    trim: true,
+    required: 'Please Enter a State Information'
   },
   slug: String,
   description: {
@@ -25,11 +71,11 @@ const storeSchema = new mongoose.Schema({
     },
     coordinates: [{
       type: Number,
-      required: 'You must supply coordinates!'
+      required: 'You must supply coordinates'
     }],
     address: {
       type: String,
-      required: 'You must supply an address!'
+      required: 'You must supply an address'
     }
   },
   photo: String,

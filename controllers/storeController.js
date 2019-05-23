@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const Store = mongoose.model('Store');
 const User = mongoose.model('User');
+const Job = mongoose.model('Job');
+const Directory = mongoose.model('Directory');
 const Van = mongoose.model('Van');
 const multer = require('multer');
 const jimp = require('jimp');
@@ -21,16 +23,17 @@ const multerOptions = {
 exports.homePage = async (req, res) => {
   const limit = 6;
   const stores = await Store.find().limit(limit);
-  res.render('index', {title: 'Home', stores});
+  const jobs = await Job.find().limit(limit);
+  const vans = await Van.find().limit(limit);
+  const directorys = await Directory.find().limit(limit);
+  res.render('index', {title: 'Home', stores, jobs, vans, directorys});
 };
 
 exports.addStore = (req, res) => {
-  res.render('editStore', { title: 'Add Store' });
+  res.render('editStore', { title: 'Post Your Grooming Business for Sale' });
 };
 
-exports.addVan = (req, res) => {
-  res.render('editVan', { title: 'Add Mobile Grooming Van Listing' });
-};
+
 
 exports.upload = multer(multerOptions).single('photo');
 
@@ -79,7 +82,7 @@ exports.getStores = async (req, res) => {
     return;
   }
 
-  res.render('stores', { title: 'Stores', stores, page, pages, count });
+  res.render('stores', { title: 'Grooming Businesses for Sale', stores, page, pages, count });
 };
 
 const confirmOwner = (store, user) => {
@@ -195,37 +198,6 @@ exports.getTopStores = async (req, res) => {
   res.render('topStores', { stores, title:'Top Listings'});
 }
 
-
-/*
-
-*************** GROOMING VANS ***************************
-
-
-*/
-
-
-exports.getVans = (req, res) => {
-  res.json('vans', {title: 'worked'})
+exports.createListing = (req, res) => {
+  res.render('createListing', {title: 'Create Groomer Ad'});
 }
-
-exports.editVan = async (req, res) => {
-  // 1. Find the store given the ID
-  const van = await Van.findOne({ _id: req.params.id });
-  // 2. confirm they are the owner of the store
-  confirmOwner(van, req.user);
-  // 3. Render out the edit form so the user can update their store
-  res.render('editVan', { title: `Edit ${van.name}`, van });
-};
-
-exports.updateVan = async (req, res) => {
-  // set the location data to be a point
-  req.body.location.type = 'Point';
-  // find and update the store
-  const van = await Van.findOneAndUpdate({ _id: req.params.id }, req.body, {
-    new: true, // return the new store instead of the old one
-    runValidators: true
-  }).exec();
-  req.flash('success', `Successfully updated <strong>${van.name}</strong>. <a href="/stores/${van.slug}">View Store →</a>`);
-  res.redirect(`/stores/${van._id}/edit`);
-  // Redriect them the store and tell them it worked
-};

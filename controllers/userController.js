@@ -15,6 +15,7 @@ exports.registerForm = (req, res) => {
 exports.validateRegister = (req, res, next) => {
   req.sanitizeBody('name');
   req.checkBody('name', 'You must supply a name!').notEmpty();
+  req.checkBody('userName', 'You must supply a user name!').notEmpty();
   req.checkBody('email', 'That Email is not valid!').isEmail();
   req.sanitizeBody('email').normalizeEmail({
     gmail_remove_dots: false,
@@ -35,7 +36,7 @@ exports.validateRegister = (req, res, next) => {
 };
 
 exports.register = async (req, res, next) => {
-    const user = new User({ email: req.body.email, name: req.body.name });
+    const user = new User({ email: req.body.email, name: req.body.name, userName: req.body.userName });
     const register = promisify(User.register, User);
     await register(user, req.body.password);
     

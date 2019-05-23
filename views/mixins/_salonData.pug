@@ -1,0 +1,22 @@
+mixin salonData()
+  form.reviewer(action="#")
+    .dataDiv
+      if store.yearsInBusiness
+       h6 Years this Salon Has Been in Business : #{store.yearsInBusiness}
+      if store.leaseTerm 
+       h6 Current Lease Term :  #{store.leaseTerm}
+      if store.rent
+       h6 Monthly Rent : #{store.rent}
+      if store.revenue 
+       h6 Estimated Monthly Salon Revenues : #{store.revenue}
+      if store.supplies
+       h6 Supplies with the Sale? : #{store.supplies}
+      if store.dogs
+       h6 Avg. Dogs Groomed Per Day : #{store.dogs}
+    if user
+      p Contact info Below is Displayed Because You're a Member :) 
+      .contactInfoSelling
+          h6 Contact Info : #{store.contact}
+
+    .reviewer__meta
+      input.button__asking(type="submit" value=`ASKING $${store.price}`)

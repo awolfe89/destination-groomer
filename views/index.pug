@@ -1,49 +1,101 @@
 extends layout
 
 include mixins/_storeCard
+include mixins/_vanCard
+include mixins/_jobCard
+include mixins/_directoryCard
 include mixins/_pagination
 
 block content
   .inner
     
   .banner2
+
   .homepage-text
-   p Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusantium, cumque. Impedit, eligendi. Excepturi neque molestias aspernatur sit sequi, dolores eveniet. Placeat, culpa itaque repudiandae corporis quisquam error aliquid sapiente laborum!
+   if user
+    h2 Hello #{user.userName}!
+   h6 Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusantium, cumque. Impedit, eligendi. Excepturi neque molestias aspernatur sit sequi, dolores eveniet. Placeat, culpa itaque repudiandae corporis quisquam error aliquid sapiente laborum!
     .text-div
    h2 Recent Listings
    hr
   
-   h2 Storefront Businesses For Sale
+   h2 Grooming Businesses for Sale        
     br
-   .stores
-    each store in stores
-     +storeCard(store)
     br
-   input.button__hpButton(type="submit" value="See All →")
-   hr
+    .stores
+      each store in stores
+        +storeCard(store)
+    br
+    <form action="/vans">
+    input.button__hpButton(type="submit" value="See All Mobile Grooming Vans")
+    </form> 
 
-   h2 Mobile Grooming Vans For Sale
-   .placeholderDiv
-   .placeholderDiv
-   .placeholderDiv
-   .placeholderDiv
-   input.button__hpButton(type="submit" value="See All →")
+   h2 Mobile Dog Grooming Vans for Sale
+    hr        
+    br
+    br    
+    .stores
+      each van in vans
+        +vanCard(van)
+    br
+    <form action="/vans">
+    input.button__hpButton(type="submit" value="See All Mobile Grooming Vans")
+    </form>  
+
    br
-   .hpCallToAction
-    h2 Sign Up Today and Place Your Ad for FREE
-    <form action="/register">
-    input.button__hpButton(type="submit" value="Sign Up")
-    </form>
+   if !user
+    .hpCallToAction
+     h2 Sign Up Today and Place Your Ad for FREE
+     <form action="/register">
+     input.button__hpButton(type="submit" value="Sign Up")
+     </form>
+   else
+    .hpCallToAction
+      h2 Hey #{user.name}, Post a Free Ad!
+      h6 ( We Make it Easy )
+      <form action="/">
+      input.button__hpButton(type="submit" value="Sounds good!")
+      </form>
    br
-  
    br
  
-   h2 Mobile Grooming Businesses For Sale
-   .placeholderDiv
-   .placeholderDiv
-   .placeholderDiv
-   .placeholderDiv
-   input.button__hpButton(type="submit" value="See All →")
+   h2 Dog Grooming Jobs  
+    hr    
+    br
+    br    
+    .stores
+      each job in jobs
+        +jobCard(job)
+    br
+    <form action="/jobs-for-groomers">
+    input.button__hpButton(type="submit" value="See All Open Grooming Jobs")
+    </form>  
    hr
+   if !user
+    .hpCallToAction
+     h2 Sign Up Today and Place Your Free Business Listing 
+     <form action="/register">
+     input.button__hpButton(type="submit" value="Sign Up")
+     </form>
+   else
+    .hpCallToAction
+      h2 Have You Listed Your Business in Our Directory Yet, #{user.userName}?
+      h6 It's a Great Way to add SEO Value to Your Website!
+      <form action="/add-groomer-directory">
+      input.button__hpButton(type="submit" value="Let's Do It!")
+      </form>
+    br
+    br
+   h2 Recent Groomer Directory Additions
+    hr        
+    br
+    br    
+    .stores
+      each directory in directorys
+        +directoryCard(directory)
+    br
+    <form action="/groomer-directory">
+    input.button__hpButton(type="submit" value="Search Groomers")
+    </form>   
 
-block footer
+

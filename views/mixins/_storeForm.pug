@@ -1,21 +1,52 @@
 mixin storeForm(store = {})
-   
+   p (*) Denotes A Required Field  
    form(action=`/add/${store._id || ''}` method="POST"  class="card" enctype="multipart/form-data")
+    h6 General Listing Info
+    label(for="name") Listing Title *
+    input(type="text" name="name" value=(store.name))
 
-    label(for="name") Ad Title 
-    input(type="text" name="name" value=store.name)
-
-    label(for="description") Description
+    label(for="description") Description *
     textarea(name='description')= store.description
+
+    label(for="contact") Preferred Contact Info *
+    input(type="text" name="contact" value=(store.contact))    
     
+    h6 Salon Specifics
+    label(for="yearsInBusiness") How Many Years Have You Been in Business? 
+    input(type="text" name="yearsInBusiness" value=(store.yearsInBusiness))
+
+    label(for="leaseTerm") Current Lease Term 
+    input(type="text" name="leaseTerm" value=(store.leaseTerm))
+
+    label(for="rent") Monthly Rent 
+    input(type="text" name="rent" value=(store.rent))
+
+    label(for="revenue") Est. Monthly Revenues
+    input(type="text" name="revenue" value=(store.revenue))
+
+    label(for="supplies") Does the Sale Come With Supplies? 
+    input(type="text" name="supplies" value=(store.supplies))
+
+    label(for="dogs") Avg. Dogs Groomed Per Day
+    input(type="text" name="dogs" value=(store.dogs))
+
+    label(for="price") Asking Price *
+    input(type="text" name="price" value=(store.price))
+
+
+
     //- IMAGE UPLOAD 
     label(for="photo") Photo
         input(type="file" name="photo" id="photo" accept="image/gif, image/png, image/jpeg")
         if store.photo  
             img(src=`/uploads/${store.photo}`, alt=store.name width=200)
-
+    h6 Location Information
+    label(for="city") City *
+    input(type="text" name="city" value=(store.city)) 
+    label(for="state") State *
+    input(type="text" name="state" value=(store.state))  
     //- Address LONG & LAT
-    label(for="address") City
+    label(for="address") Address *
     input(type="text" id="address" name="location[address]" value=(store.location && store.location.address))
 
     label(for="lng") Address Lng
@@ -27,17 +58,11 @@ mixin storeForm(store = {})
     - const states = ['Choose..', 'Illinois', 'Florida', 'Colorado']
     - const choices = ['Mobile Vans', 'Store Front', 'Priced to Sell', 'Mobile Businesses', 'Supplies']
     - const tags = store.tags || []
-    h3 Category
+    h6 Choose Listing Tags
     ul.tags
         each choice in choices
             .tag.tag__choice
                 input(type='checkbox' id=choice value=choice name="tags" checked=(tags.includes(choice)))
                 label(for=choice) #{choice}
 
-    div
-    form(action='/SkillOpted' method="post")
-        label(for='state') State 
-        select(name='dropDown', id='')
-            each state in states
-                option=state
     input(type="submit" value="save -<" class='button')

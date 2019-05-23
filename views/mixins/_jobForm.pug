@@ -1,0 +1,53 @@
+mixin jobForm(job = {})
+   p (*) Denotes A Required Field  
+   form(action=`/add-grooming-job/${job._id || ''}` method="POST"  class="card" enctype="multipart/form-data")
+
+    label(for="name") Post Title *
+    input(type="text" name="name" value=(job.name))
+
+    label(for="description") Description *
+    textarea(name='description')= job.description
+    
+    - const choices = ['Mobile Groomers', 'Salon Groomers']
+    - const tags = job.jobTags || []
+
+    
+    label(for="ftpt") Is This a Full-Time or Part-Time Position? 
+    input(type="text" name="ftpt" value=(job.ftpt))
+
+    label(for="salary") Salary / Pay Offered 
+    input(type="text" name="salary" value=(job.salary))
+
+    label(for="requirements") Candidate Requirements 
+    textarea(name='requirements')= job.requirements
+
+    label(for="contact") Phone Number ( if preferred )
+    textarea(name='contact')= job.contact
+
+    label(for="email") Email ( if preferred )
+    textarea(name='email')= job.email
+
+    //- IMAGE UPLOAD 
+    label(for="photo") Photo
+        input(type="file" name="photo" id="photo" accept="image/gif, image/png, image/jpeg")
+        if job.photo  
+            img(src=`/uploads/${job.photo}`, alt=job.name width=200)
+
+    //- Address LONG & LAT
+    label(for="address") Salon Location *
+    input(type="text" id="address" name="location[address]" value=(job.location && job.location.address))
+
+    label(for="lng") Address Lng
+    input(type="text" id="lng" name="location[coordinates][0]" value=(job.location && job.location.coordinates[0]) required)
+
+
+    label(for="lat") Address Lat
+    input(type="text" id="lat" name="location[coordinates][1]" value=(job.location && job.location.coordinates[1]) required)
+    h3 Which Type of Groomer are You Looking For?
+    ul.tags
+        each choice in choices
+            .tag.tag__choice
+                input(type='checkbox' id=choice value=choice name="tags" checked=(tags.includes(choice)))
+                label(for=choice) #{choice}
+
+    input(type="submit" value="save -<" class='button')

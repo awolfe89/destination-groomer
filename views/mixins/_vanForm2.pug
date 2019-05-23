@@ -1,0 +1,10 @@
+mixin vanForm2(van = {})
+
+
+    form(action=`/add-grooming-van/${van._id || ''}` method='POST' class="card" enctype="multipart/form-data" )
+        label(for="name") Sold? 
+        input(type="checkbox", name="sold" value="true")
+        h6 General Information
+        label(for="name") Ad Title *
+        input(type="text" name="name" value=(van.name))
+        input(type="submit" value="Save →" class="button")

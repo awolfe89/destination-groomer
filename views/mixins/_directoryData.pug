@@ -1,0 +1,18 @@
+mixin directoryData()
+  form.reviewer(action="#")
+    .dataDiv
+      if directory.animals
+        h6 Animals Groomed : #{directory.animals}
+      if directory.phone 
+        h6 Phone Number :  #{directory.phone}
+      if directory.email
+        h6 Email Address : #{directory.email}
+      if directory.facebook 
+       h6 Company Facebook Profile : #{directory.facebook}
+      if directory.website
+       h6 Our Website : #{directory.website}
+
+
+
+    .reviewer__meta
+      input.button__asking(type="submit" value=`${directory.city}, ${directory.state}`)

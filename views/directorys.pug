@@ -1,0 +1,17 @@
+extends layout
+
+include mixins/_directoryCard
+include mixins/_pagination
+
+block content
+  .inner
+    h2= title
+
+    .stores
+      each directory in directorys
+        +directoryCard(directory)
+    if user 
+      h6 Hey #{user.name}, Since You're a Registered User, you can #[a(href="/add-groomer-directory") create your own Grooming Business listing here! #[span ]] 
+    else
+      h6 #[a(href="/login") Log in #[span ]]  or #[a(href="/register") register #[span ]] to create your own listings!
+    +pagination(page, pages, count)
