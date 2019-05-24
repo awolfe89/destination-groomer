@@ -7,6 +7,7 @@ block content
     .inner
   
         h2 #{tag || 'Search By Category'}
+        h.price
         ul.tags
             each t in tags
                 li.tag
@@ -15,4 +16,5 @@ block content
                         span.tag__count= t.count
         .stores
             each job in jobs
-                +jobCard(job)
+                    +jobCard(job)
+

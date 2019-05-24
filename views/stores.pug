@@ -6,12 +6,20 @@ include mixins/_pagination
 block content
   .inner
     h2= title 
-
+    .map
+      .autocomplete
+        input.autocomplete__input(type="text" placeholder="Type in City or State" name="geolocate")
+      #map
+        p Loading Map...
+    br
+    h6 Browse all Grooming Business Listings    
     .stores
       each store in stores
-        +storeCard(store)
+        if !store.sold
+          +storeCard(store)
     if user 
-      h6 Hey #{user.name}, Since You're a Registered User, you can #[a(href="/add") create your own Salon listing here! #[span ]] 
+      h6 Hey #{user.name}, Since You're a Registered User, you can #[a(href="/add") create #[span ]] your own Salon listing! 
     else
       h6 #[a(href="/login") Log in #[span ]]  or #[a(href="/register") register #[span ]] to create your own listings!           
     +pagination(page, pages, count)
+    h6 #[a(href="/sold-groomer-ads") View #[span ]] Recently Sold Groomer Ads →

@@ -2,11 +2,11 @@ import axios from 'axios';
 import { $ } from './bling';
 
 const mapOptions = {
-  center: { lat: 43.2, lng: -79.8 },
-  zoom: 10
+  center: { lat: 39.8, lng: -98.5 },
+  zoom: 6
 };
 
-function loadPlaces(map, lat = 43.2, lng = -79.8) {
+function loadPlaces(map, lat = 39.8, lng = -98.5) {
   axios.get(`/api/stores/near?lat=${lat}&lng=${lng}`)
     .then(res => {
       const places = res.data;
@@ -33,7 +33,7 @@ function loadPlaces(map, lat = 43.2, lng = -79.8) {
         const html = `
           <div class="popup">
             <a href="/store/${this.place.slug}">
-              <img src="/uploads/${this.place.photo || 'store.png'}" alt="${this.place.name}" />
+              <img src="/uploads/${this.place.photo || 'brushes-1200.jpg'}" alt="${this.place.name}" />
               <p>${this.place.name} - ${this.place.location.address}</p>
             </a>
           </div>

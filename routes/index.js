@@ -70,6 +70,7 @@ router.get('/create-listing', authController.isLoggedIn, storeController.createL
 router.get('/top', catchErrors(storeController.getTopStores));
 router.get('/api/search', catchErrors(storeController.searchStores));
 router.get('/api/stores/near', catchErrors(storeController.mapStores));
+
 router.post('/api/stores/:id/heart', catchErrors(storeController.heartStore));
 router.get('/map', storeController.mapPage);
 router.get('/hearts', authController.isLoggedIn, catchErrors(storeController.getHearts));
@@ -101,7 +102,7 @@ router.post('/add-grooming-van/:id',
 
 
 router.post('/api/vans/:id/heart', catchErrors(storeController.heartVan));
-
+router.get('/api/grooming-vans/near', catchErrors(vanController.mapVans));
 /*
   **************              JOBS                      ********************************
 */
@@ -158,6 +159,13 @@ router.post('/add-groomer-directory/:id',
   catchErrors(directoryController.updateDirectory)
 );
 
+
+/*
+  **************              ADDITIONAL                ********************************
+*/
 router.get('/saves', authController.isLoggedIn, catchErrors(jobController.getSaves));
 router.post('/api/groomer-listings/:id/saved', catchErrors(jobController.saved));
 module.exports = router;
+
+//RECENTLY SOLD LISTINGS 
+router.get('/sold-groomer-ads', storeController.soldPage);

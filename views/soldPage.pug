@@ -1,0 +1,25 @@
+extends layout
+
+include mixins/_storeCard
+include mixins/_vanCard
+include mixins/_jobCard
+include mixins/_directoryCard
+include mixins/_pagination
+
+block content
+    .inner
+        h2= title
+        hr
+        h6 Recently Sold Grooming Vans
+        .stores
+            each van in vans
+                if van.sold
+                    +vanCard(van)
+        br
+        hr
+        br            
+        h6 Recently Sold Grooming Businesses
+        .stores
+            each store in stores
+                if store.sold
+                    +storeCard(store)

@@ -62,7 +62,7 @@ exports.createStore = async (req, res) => {
 
 exports.getStores = async (req, res) => {
   const page = req.params.page || 1;
-  const limit = 4;
+  const limit = 6;
   const skip = (page * limit) - limit;
 
   // 1. Query the database for a list of all stores
@@ -148,7 +148,7 @@ exports.searchStores = async (req, res) => {
     score: { $meta: 'textScore' }
   })
   // limit to only 5 results
-  .limit(5);
+  .limit(500);
   res.json(stores);
 };
 
@@ -161,17 +161,18 @@ exports.mapStores = async (req, res) => {
           type: 'Point',
           coordinates
         },
-        $maxDistance: 10000 // 10km
+        $maxDistance: 1000000 
       }
     }
   };
 
   const stores = await Store.find(q).select('slug name description location photo').limit(10);
+
   res.json(stores);
 };
 
 exports.mapPage = (req, res) => {
-  res.render('map', { title: 'Listings Near You' });
+  res.render('map', { title: 'Groomer Ads Near You' });
 };
 
 exports.heartStore = async (req, res) => {
@@ -198,6 +199,22 @@ exports.getTopStores = async (req, res) => {
   res.render('topStores', { stores, title:'Top Listings'});
 }
 
+/*
+  **************              ADDITIONAL               ********************************
+*/
+
+//MAIN LISTING CHOICE PAGE 
 exports.createListing = (req, res) => {
   res.render('createListing', {title: 'Create Groomer Ad'});
+}
+
+//MAIN SOLD ITEMS PAGE 
+
+exports.soldPage = async (req, res) => {
+  const limit = 10;
+  const stores = await Store.find().limit(limit);
+  const jobs = await Job.find().limit(limit);
+  const vans = await Van.find().limit(limit);
+  const directorys = await Directory.find().limit(limit);
+  res.render('soldPage', {title: 'Recently Sold Groomer Ads', stores, jobs, vans})
 }
