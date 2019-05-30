@@ -8,9 +8,9 @@ block content
     h2= title
 
     .stores
+
       each directory in directorys
-        if directory.state === IL
-          +directoryCard(directory)
+        +directoryCard(directory)
     if user 
       h6 Hey #{user.name}, Since You're a Registered User, you can #[a(href="/add-groomer-directory") create your own Grooming Business listing here! #[span ]] 
     else

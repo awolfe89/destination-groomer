@@ -1,11 +1,4 @@
 const mongoose = require('mongoose');
-const Store = mongoose.model('Store');
-const User = mongoose.model('User');
-const Job = mongoose.model('Job');
-const Van = mongoose.model('Van');
-const multer = require('multer');
-const jimp = require('jimp');
-const uuid = require('uuid');
 const Directory = mongoose.model('Directory');
 
 
@@ -30,7 +23,7 @@ exports.addDirectory = (req, res) => {
       .find()
       .skip(skip)
       .limit(limit)
-      .sort({ created: 'desc' });
+      .sort({ name: 'desc' });
   
     const countPromise = Directory.count();
   
@@ -92,41 +85,4 @@ exports.addDirectory = (req, res) => {
     res.render('directoryTag', { tags, title: 'Categories', tag, directorys });
   };
   
-  
-  exports.searchDirectorys = async (req, res) => {
-    const directorys = await Directory
-    // first find listings that match
-    .find({
-      $text: {
-        $search: req.query.q
-      }
-    }, {
-      score: { $meta: 'textScore' }
-    })
-    // the sort them
-    .sort({
-      score: { $meta: 'textScore' }
-    })
-    // limit to only 5 results
-    .limit(5);
-    res.json(directorys);
-  };
-  
-  exports.mapDirectorys = async (req, res) => {
-    const coordinates = [req.query.lng, req.query.lat].map(parseFloat);
-    const q = {
-      location: {
-        $near: {
-          $geometry: {
-            type: 'Point',
-            coordinates
-          },
-          $maxDistance: 10000 // 10km
-        }
-      }
-    };
-  
-    const directorys = await Directory.find(q).select('slug name description location photo').limit(10);
-    res.json(directorys);
-  };
   

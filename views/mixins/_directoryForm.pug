@@ -1,14 +1,21 @@
 mixin directoryForm(directory = {})
    p (*) Denotes A Required Field  
+    - const poops = ['Arizona', 'Alabama', 'Deleware', 'Wisonsin']   
+   
    form(action=`/add-groomer-directory/${directory._id || ''}` method="POST"  class="card" enctype="multipart/form-data")
     h6 Basic Company Info 
     label(for="name") Business Name *
     input(type="text" name="name" value=(directory.name))
-
+    
+    label(for='skillOpt') Skills 
+        select(name='dropDown', id='')
+            each poop in poops
+                option=poop
     label(for="description") Business Description *
     textarea(name='description')= directory.description
     
     - const choices = ['Mobile Grooming Business', 'Salon Grooming Business']
+
     - const tags = directory.directoryTags || []
 
     
